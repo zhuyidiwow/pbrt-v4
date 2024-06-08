@@ -1,6 +1,10 @@
 # pbrt-v4 top-level CMakeLists.txt
 
-cmake_minimum_required (VERSION 3.12)
+# cmake -B build
+cmake_minimum_required (VERSION 3.29.3)
+
+set(CMAKE_CXX_COMPILER "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++")
+set(CMAKE_C_COMPILER "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc")
 
 project (PBRT-V4 LANGUAGES CXX C)
 
@@ -413,7 +417,7 @@ int main() {
    fstat(fd, &s);
    size_t len = s.st_size;
    void *ptr = mmap(0, len, PROT_READ, MAP_FILE | MAP_SHARED, fd, 0);
-   munmap(ptr, len);   
+   munmap(ptr, len);
 }
 " HAVE_MMAP)
 
@@ -545,7 +549,7 @@ set (PBRT_SOURCE
 
   src/pbrt/cmd/pspec_gpu.cpp
   )
-  
+
 if (MSVC)
     set (PBRT_SOURCE ${PBRT_SOURCE} src/pbrt/visualstudio.natvis)
 endif ()
@@ -572,7 +576,7 @@ set (PBRT_SOURCE_HEADERS
   src/pbrt/scene.h
   src/pbrt/shapes.h
   src/pbrt/textures.h
-  )  
+  )
 
 SET (PBRT_CPU_SOURCE
   src/pbrt/cpu/aggregates.cpp
@@ -930,7 +934,7 @@ target_link_libraries (rgb2spec_opt PRIVATE ${CMAKE_THREAD_LIBS_INIT} pbrt_opt p
 
 if (NOT PBRT_USE_PREGENERATED_RGB_TO_SPECTRUM_TABLES)
   add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/rgbspectrum_aces.cpp
-      COMMAND rgb2spec_opt 64 ${CMAKE_CURRENT_BINARY_DIR}/rgbspectrum_aces.cpp ACES2065_1 
+      COMMAND rgb2spec_opt 64 ${CMAKE_CURRENT_BINARY_DIR}/rgbspectrum_aces.cpp ACES2065_1
       DEPENDS rgb2spec_opt)
 
   add_custom_command (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/rgbspectrum_dci_p3.cpp

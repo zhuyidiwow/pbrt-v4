@@ -228,3 +228,66 @@ is straightforward:
 ```bash
 $ imgtool denoise-optix noisy.exr --outfile denoised.exr
 ```
+
+## Help
+
+```bash
+usage: pbrt [<options>] <filename.pbrt...>
+
+Rendering options:
+  --cropwindow <x0,x1,y0,y1>    Specify an image crop window w.r.t. [0,1]^2.
+  --debugstart <values>         Inform the Integrator where to start rendering for
+                                faster debugging. (<values> are Integrator-specific
+                                and come from error message text.)
+  --disable-image-textures      Always return the average value of image textures.
+  --disable-pixel-jitter        Always sample pixels at their centers.
+  --disable-texture-filtering   Point-sample all textures.
+  --disable-wavelength-jitter   Always sample the same 4 wavelengths of light.
+  --displacement-edge-scale <s> Scale target triangle edge length by given value.
+                                (Default: 1)
+  --display-server <addr:port>  Connect to display server at given address and port
+                                to display the image as it's being rendered.
+  --force-diffuse               Convert all materials to be diffuse.)
+  --fullscreen                  Render fullscreen. Only supported with --interactive.
+  --help                        Print this help text.
+  --interactive                 Enable interactive rendering mode.
+  --mse-reference-image         Filename for reference image to use for MSE computation.
+  --mse-reference-out           File to write MSE error vs spp results.
+  --nthreads <num>              Use specified number of threads for rendering.
+  --outfile <filename>          Write the final image to the given filename.
+  --pixel <x,y>                 Render just the specified pixel.
+  --pixelbounds <x0,x1,y0,y1>   Specify an image crop window w.r.t. pixel coordinates.
+  --pixelmaterial <x,y>         Print information about the material visible in the
+                                center of the pixel's extent.
+  --pixelstats                  Record per-pixel statistics and write additional images
+                                with their values.
+  --quick                       Automatically reduce a number of quality settings
+                                to render more quickly.
+  --quiet                       Suppress all text output other than error messages.
+  --render-coord-sys <name>     Coordinate system to use for the scene when rendering,
+                                where name is "camera", "cameraworld", or "world".
+  --seed <n>                    Set random number generator seed. Default: 0.
+  --stats                       Print various statistics after rendering completes.
+  --spp <n>                     Override number of pixel samples specified in scene
+                                description file.
+  --wavefront                   Use wavefront volumetric path integrator.
+  --write-partial-images        Periodically write the current image to disk, rather
+                                than waiting for the end of rendering. Default: disabled.
+
+Logging options:
+  --log-file <filename>         Filename to write logging messages to. Default: none;
+                                messages are printed to standard error. Implies
+                                --log-level verbose if specified.
+  --log-level <level>           Log messages at or above this level, where <level>
+                                is "verbose", "error", or "fatal". Default: "error".
+  --log-utilization             Periodically print processor and memory use in verbose-
+                                level logging.
+
+Reformatting options:
+  --format                      Print a reformatted version of the input file(s) to
+                                standard output. Does not render an image.
+  --toply                       Print a reformatted version of the input file(s) to
+                                standard output and convert all triangle meshes to
+                                PLY files. Does not render an image.
+  --upgrade                     Upgrade a pbrt-v3 file to pbrt-v4's format.
+```
