@@ -30,7 +30,9 @@
 #include <pbrt/util/transform.h>
 
 #include <algorithm>
+#include <ctime>
 #include <cstring>
+#include <locale>
 
 namespace pbrt {
 
@@ -66,8 +68,18 @@ std::string Film::GetFilename() const {
 FilmBaseParameters::FilmBaseParameters(const ParameterDictionary &parameters,
                                        Filter filter, const PixelSensor *sensor,
                                        const FileLoc *loc)
-    : filter(filter), sensor(sensor) {
+    : filter(filter), sensor(sensor) 
+{
     filename = parameters.GetOneString("filename", "");
+    filename.erase(filename.find(".exr"));
+    const int spp = Options->pixelSamples.value_or(0);
+    
+    char time_str[64];
+    std::time_t time = std::time({});
+    std::strftime(time_str, sizeof(time_str), "%y%m%d_%H.%M", std::localtime(&time));
+    
+    filename = StringPrintf("/Users/yidi/Documents/pbrt-results/%s_%dspp_%s.exr", filename.c_str(), spp, time_str);
+        
     if (!Options->imageFile.empty()) {
         if (!filename.empty())
             Warning(loc,
